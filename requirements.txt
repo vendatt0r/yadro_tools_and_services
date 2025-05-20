@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+sqlmodel
+httpx
+jinja2
+psycopg2-binary
+pytest

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Users</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<h1>Random Users</h1>
+<form method="get" action="/">
+    <label for="page">Page:</label>
+    <input type="number" name="page" id="page" value="{{ page }}" min="1">
+    <button type="submit">Go</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Photo</th>
+        <th>Gender</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Location</th>
+        <th>Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr>
+            <td><img src="{{ user.thumbnail }}" alt="photo"></td>
+            <td>{{ user.gender }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.city }}, {{ user.country }}</td>
+            <td><a href="/user/{{ user.id }}">View</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="pagination">
+    {% for p in range(1, total_pages + 1) %}
+        <a href="/?page={{ p }}" class="{% if p == page %}active{% endif %}">{{ p }}</a>
+    {% endfor %}
+</div>
+</body>
+</html>
