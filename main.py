@@ -36,17 +36,20 @@ def read_root(request: Request, page: int = 1, per_page: int = 20):
             "total_pages": (total // per_page) + 1
         })
 
-@app.get("/user/{user_id}", response_class=HTMLResponse)
+@app.get("/random", response_class=HTMLResponse)
+def random_user(request: Request):
+    with Session(engine) as session:
+        users = session.exec(select(User)).all()
+        user = choice(users)
+        return templates.TemplateResponse("user_detail.html", {
+            "request": request,
+            "user": user
+        })
+
+@app.get("/{user_id}", response_class=HTMLResponse)
 def read_user(request: Request, user_id: int):
     with Session(engine) as session:
         user = session.get(User, user_id)
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
         return templates.TemplateResponse("user_detail.html", {"request": request, "user": user})
-
-@app.get("/random", response_class=HTMLResponse)
-def random_user(request: Request):
-    with Session(engine) as session:
-        users = session.exec(select(User)).all()
-        user = choice(users)
-        return RedirectResponse(url=f"/user/{user.id}")

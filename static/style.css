@@ -22,20 +22,32 @@ img {
 }
 .pagination {
     margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px;
 }
+
 .pagination a {
-    margin: 0 5px;
-    padding: 5px 10px;
-    text-decoration: none;
+    display: inline-block;
+    min-width: 36px;
+    padding: 6px 10px;
+    text-align: center;
     background-color: #ddd;
     color: #000;
-    border-radius: 3px;
+    text-decoration: none;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    white-space: nowrap;
 }
+
 .pagination a.active {
     font-weight: bold;
     background-color: #999;
     color: #fff;
 }
+
 .user-card {
     background: #fff;
     padding: 20px;
