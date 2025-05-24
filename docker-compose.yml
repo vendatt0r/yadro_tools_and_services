@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    container_name: fastapi_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./data:/app/data  # сохраняем базу вне контейнера
+    environment:
+      - DATABASE_URL=sqlite:///data/database.db
+    restart: unless-stopped
