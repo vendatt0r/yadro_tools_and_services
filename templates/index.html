@@ -6,6 +6,12 @@
 </head>
 <body>
 <h1>Random Users</h1>
+<form method="post" action="/" style="margin-bottom: 20px;">
+    <label for="count">Number of users to fetch:</label>
+    <input type="number" id="count" name="count" min="1" max="1000" required>
+    <button type="submit">Load Users</button>
+</form>
+
 <form method="get" action="/">
     <label for="page">Page:</label>
     <input type="number" name="page" id="page" value="{{ page }}" min="1">

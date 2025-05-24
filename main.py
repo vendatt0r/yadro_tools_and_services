@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request, HTTPException, Form
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -35,7 +35,11 @@ def read_root(request: Request, page: int = 1, per_page: int = 20):
             "page": page,
             "total_pages": (total // per_page) + 1
         })
-
+@app.post("/", response_class=HTMLResponse)
+async def load_users(request: Request, count: int = Form(...)):
+    users = await fetch_users(count)
+    save_users(users)
+    return RedirectResponse(url="/", status_code=303)
 @app.get("/random", response_class=HTMLResponse)
 def random_user(request: Request):
     with Session(engine) as session:
